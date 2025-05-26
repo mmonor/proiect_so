@@ -1,10 +1,11 @@
+#!/bin/bash
 login_user() {
     local username="$1"
     local password="$2"
     local user_file="users.csv"
 
     if [[ ! -f "$user_file" ]]; then
-        echo "Nu există utilizatori înregistrați."
+        echo "Nu exista utilizatori inregistrati."
         return 1
     fi
 
@@ -15,12 +16,11 @@ login_user() {
     user_line=$(grep "^.*,${username},${password_hash}," "$user_file")
 
     if [[ -n "$user_line" ]]; then
-        echo "Logged in as $username."
+        echo "$username."
 	cd "directoare/$username"
-	pwd
         return 0
     else
-        echo "Username sau parola incorectă."
+        echo "Username sau parola incorecta."
         return 1
     fi
 }

@@ -28,13 +28,13 @@ register_user() {
     password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
 
     echo "$id,$username,$password_hash,$email" >> "$user_file"
-    echo "Utilizator $username înregistrat cu succes cu ID: $id"
+    echo "Utilizator $username inregistrat cu succes cu ID: $id"
     mkdir -p "directoare"
     mkdir -p "directoare/$username"
 }
 prompt_register(){
 	read -p "Username: " username
-	read  -p "Parolă: " password
+	read  -p "Parola: " password
 	echo
 	read -p "Email: " email
 
