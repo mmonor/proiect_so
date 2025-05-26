@@ -18,7 +18,7 @@ register_user() {
     fi
 
     if grep -q ",$username," "$user_file" || grep -q ",$email$" "$user_file"; then
-        echo "Eroare: Username sau email deja folosit."
+        echo "Error: Username or email already in use."
         return 1
     fi
 
