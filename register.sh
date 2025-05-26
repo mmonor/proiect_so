@@ -9,7 +9,7 @@ register_user() {
     local email_regex="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
 
     if ! [[ "$email" =~ $email_regex ]]; then
-        echo "Eroare: Email invalid."
+        echo "Error: Invalid email address ."
         return 1
     fi
 
@@ -28,13 +28,13 @@ register_user() {
     password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
 
     echo "$id,$username,$password_hash,$email" >> "$user_file"
-    echo "Utilizator $username inregistrat cu succes cu ID: $id"
+    echo "User $username succesfully registered with ID: $id"
     mkdir -p "directoare"
     mkdir -p "directoare/$username"
 }
 prompt_register(){
 	read -p "Username: " username
-	read  -p "Parola: " password
+	read  -p "Password: " password
 	echo
 	read -p "Email: " email
 

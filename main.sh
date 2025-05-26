@@ -2,7 +2,7 @@
 
 logged_in_users=()
 current_user=""
-
+last_user=""
 while true; do
     if [[ -z "$current_user" ]]; then
         echo ""
@@ -13,44 +13,44 @@ while true; do
                 ./register.sh
                 ;;
             2)
-                username=$(source login.sh)
-                if [[ -n "$username" ]]; then
-                    already_logged_in=false
-                    for user in "${logged_in_users[@]}"; do
-                        if [[ "$user" == "$username" ]]; then
-                            already_logged_in=true
-                            break
-                        fi
-                    done
-
-                    if $already_logged_in; then
-                        echo "Utilizatorul '$username' este deja logat."
-                    else
-                        logged_in_users+=("$username")
-                        current_user="$username"
-                        echo "Utilizator logat: $username"
-                    fi
-                fi
-                ;;
+		 username=$(source login.sh)
+    		 exists=false
+    		 for user in "${logged_in_users[@]}"; do
+      			 if [[ "$username" == "$user" ]]; then
+            			exists=true
+            			break
+      			 fi
+    		 done
+    		 if ! $exists; then
+        		logged_in_users+=("$username")
+    		 fi
+    		current_user="$username"
+    		last_user="$username"
+    		echo "Logged in as : $username"
+    		;;
+                
+     
             3)
                 echo "Te pup"
                 break
                 ;;
             *)
-                echo "Opțiune invalidă."
+                echo "Invalid option."
                 ;;
         esac
     else
         echo ""
-        echo "Utilizatori logați: ${logged_in_users[*]}"
+        echo "Logged in users:  ${logged_in_users[*]}"
         read -p "Raport (1) | Logout (2) | Exit (3): " choice
 
         case $choice in
             1)
-                echo "Afișare raport (de implementat)"
+                echo "Generating report..."
+
+		./raport.sh "$last_user" &
                 ;;
             2)
-                echo "$current_user s-a delogat."
+                echo "$current_user logged out."
                 for i in "${!logged_in_users[@]}"; do
                     if [[ "${logged_in_users[$i]}" == "$current_user" ]]; then
                         unset 'logged_in_users[i]'
@@ -63,7 +63,7 @@ while true; do
                 current_user=""
                 ;;
             *)
-                echo "Opțiune invalidă."
+                echo "Invalid option."
                 ;;
         esac
     fi

@@ -5,7 +5,7 @@ login_user() {
     local user_file="users.csv"
 
     if [[ ! -f "$user_file" ]]; then
-        echo "Nu exista utilizatori inregistrati."
+        echo "There are no registered users."
         return 1
     fi
 
@@ -16,18 +16,18 @@ login_user() {
     user_line=$(grep "^.*,${username},${password_hash}," "$user_file")
 
     if [[ -n "$user_line" ]]; then
-        echo "$username."
+        echo "$username"
 	cd "directoare/$username"
         return 0
     else
-        echo "Username sau parola incorecta."
+        echo "Username or password are incorrect."
         return 1
     fi
 }
 prompt_login(){
 
     read -p "Username: " username
-    read -p "Parolă: " password
+    read -p "Password: " password
 
    login_user "$username" "$password"
 
