@@ -20,7 +20,7 @@ login_user() {
 	cd "directoare/$username"
         return 0
     else
-        echo "Username or password are incorrect."
+        echo "Username or password are incorrect." >&2
         return 1
     fi
 }
