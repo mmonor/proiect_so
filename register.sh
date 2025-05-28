@@ -18,15 +18,14 @@ register_user() {
     fi
 
     if grep -q ",$username," "$user_file" || grep -q ",$email$" "$user_file"; then
-        echo "Error: Username or email already in use."
+        echo "Eroare: Username sau email deja folosit."
         return 1
     fi
 
     local id=$(( RANDOM % 9000 + 1000 ))
 
     local password_hash
-    password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
-
+    password_hash=$(echo -n "$password" | sha256sum | sed 's/ .*//')
     echo "$id,$username,$password_hash,$email" >> "$user_file"
     echo "User $username succesfully registered with ID: $id"
     mkdir -p "directoare"

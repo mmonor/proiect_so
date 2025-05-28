@@ -6,7 +6,7 @@ last_user=""
 while true; do
     if [[ -z "$current_user" ]]; then
         echo ""
-        read -p "Register (1) | Login (2) | Exit (3): " choice
+        read -p "Register (1) | Login (2) | Exit Program (3): " choice
 
         case $choice in
             1)
@@ -41,7 +41,7 @@ while true; do
     else
         echo ""
         echo "Logged in users:  ${logged_in_users[*]}"
-        read -p "Raport (1) | Logout (2) | Exit (3): " choice
+        read -p "Raport (1) | Logout (2) | Back to Menu (3): " choice
 
         case $choice in
             1)

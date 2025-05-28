@@ -10,7 +10,8 @@ login_user() {
     fi
 
     local password_hash
-    password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
+    password_hash=$(echo -n "$password" | sha256sum | sed 's/ .*//')
+    # password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
 
     local user_line
     user_line=$(grep "^.*,${username},${password_hash}," "$user_file")
@@ -18,9 +19,10 @@ login_user() {
     if [[ -n "$user_line" ]]; then
         echo "$username"
 	cd "directoare/$username"
+	bash
         return 0
     else
-        echo "Username or password are incorrect." >&2
+        echo "Username or password are incorrect."
         return 1
     fi
 }
