@@ -5,7 +5,7 @@ login_user() {
     local user_file="users.csv"
 
     if [[ ! -f "$user_file" ]]; then
-        echo "There are no registered users."
+        echo "There are no registered users." >&2
         return 1
     fi
 
@@ -21,7 +21,7 @@ login_user() {
 	bash
         return 0
     else
-        echo "Username or password are incorrect."
+        echo "Username or password are incorrect." >&2
         return 1
     fi
 }

@@ -18,15 +18,14 @@ register_user() {
     fi
 
     if grep -q ",$username," "$user_file" || grep -q ",$email" "$user_file"; then
-        echo "Eroare: Username sau email deja folosit."
+        echo "Error: Username or email deja already in use."
         return 1
     fi
 
-    user_file="users.csv"
 
     while true; do
   	id=$(( RANDOM % 9000 + 1000 ))
-	  if ! tail -n +2 "$user_file" | cut -d',' -f1 | grep -q "^$id$"; then
+	  if ! tail -n +2 "$user_file" | cut -d',' -f1 | grep -q "^$id"; then
     		break
   	  fi
     done

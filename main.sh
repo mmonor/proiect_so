@@ -26,7 +26,9 @@ while true; do
     		 fi
     		current_user="$username"
     		last_user="$username"
-    		echo "Logged in as : $username"
+    		if [[ -n "$username" ]]; then
+			echo "Logged in as : $username"
+		fi
     		;;
                 
      
