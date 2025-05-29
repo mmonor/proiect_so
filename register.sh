@@ -22,10 +22,7 @@ register_user() {
         return 1
     fi
 
-<<<<<<< HEAD
-=======
-    
->>>>>>> 649620de7a371387d288836de26d1ac9440c3401
+
 
     while true; do
   	id=$(( RANDOM % 9000 + 1000 ))
