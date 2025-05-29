@@ -22,11 +22,11 @@ register_user() {
         return 1
     fi
 
-    user_file="users.csv"
+    
 
     while true; do
   	id=$(( RANDOM % 9000 + 1000 ))
-	  if ! tail -n +2 "$user_file" | cut -d',' -f1 | grep -q "^$id$"; then
+	  if ! tail -n +2 "$user_file" | cut -d',' -f1 | grep -q "^$id"; then
     		break
   	  fi
     done
