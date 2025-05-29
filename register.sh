@@ -17,16 +17,26 @@ register_user() {
         echo "id,username,password_hash,email" > "$user_file"
     fi
 
-    if grep -q ",$username," "$user_file" || grep -q ",$email$" "$user_file"; then
+    if grep -q ",$username," "$user_file" || grep -q ",$email" "$user_file"; then
         echo "Eroare: Username sau email deja folosit."
         return 1
     fi
 
-    local id=$(( RANDOM % 9000 + 1000 ))
+    user_file="users.csv"
+
+    while true; do
+  	id=$(( RANDOM % 9000 + 1000 ))
+	  if ! tail -n +2 "$user_file" | cut -d',' -f1 | grep -q "^$id$"; then
+    		break
+  	  fi
+    done
+
 
     local password_hash
     password_hash=$(echo -n "$password" | sha256sum | sed 's/ .*//')
     echo "$id,$username,$password_hash,$email" >> "$user_file"
+    mesaj="User $username successfully registered with ID: $id"
+    echo -e "Subject: Registration complete\n\n$mesaj" | msmtp "$email"	
     echo "User $username succesfully registered with ID: $id"
     mkdir -p "directoare"
     mkdir -p "directoare/$username"
@@ -34,7 +44,6 @@ register_user() {
 prompt_register(){
 	read -p "Username: " username
 	read  -p "Password: " password
-	echo
 	read -p "Email: " email
 
 register_user "$username" "$password" "$email"

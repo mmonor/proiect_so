@@ -11,7 +11,6 @@ login_user() {
 
     local password_hash
     password_hash=$(echo -n "$password" | sha256sum | sed 's/ .*//')
-    # password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
 
     local user_line
     user_line=$(grep "^.*,${username},${password_hash}," "$user_file")
